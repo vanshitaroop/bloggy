@@ -8,32 +8,32 @@ jobs:
   lint:
     runs-on: ubuntu-latest
 
-  steps: 
-    - uses: action/checkout@v4
-    - uses: actions/setup-node@v4
-    with:
-      node-version: 22.x
-    - run: npm ci
-    - run: npm run lint 
+    steps: 
+      - uses: action/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+           node-version: 22.x
+      - run: npm ci
+      - run: npm run lint 
   
   test:
     runs-on: ubuntu-latest
 
-  steps: 
-    - uses: action/checkout@v4
-    - uses: actions/setup-node@v4
-    with:
-      node-version: 22.x
-    - run: npm ci
-    - run: npm run test
+     steps: 
+      - uses: action/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+           node-version: 22.x
+      - run: npm ci
+      - run: npm run test 
 
-  build:
+  build :
     runs-on: ubuntu-latest
 
-  steps: 
-    - uses: action/checkout@v4
-    - uses: actions/setup-node@v4
-    with:
-      node-version: 22.x
-    - run: npm ci
-    - run: npm run build 
+    steps: 
+      - uses: action/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+           node-version: 22.x
+      - run: npm ci
+      - run: npm run build 
