@@ -16,7 +16,7 @@ jobs:
         with:
            node-version: ${{matrix.node-versions}}
       - run: npm ci
-      - run: npm run lint 
+      - run: npm run lint   
   
   test:
     runs-on: ubuntu-latest
@@ -40,3 +40,27 @@ jobs:
            node-version: 22.x
       - run: npm ci
       - run: npm run build 
+
+  build-and-push: 
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: vanshitaroop/blog-app
+      IMAGE_TAG: build-${{github.run_number}}
+    needs:
+      - lint
+      - test
+      - build
+    steps: 
+      - name: Checkout th source code
+        uses: actions/checkout@v4
+       - name: build docker image
+        run: docker build -t ${{env.IMAGE_NAME}}:${{IMAGE_TAG}} --platform linux/amd64 .
+      - name: Login into Docker hub
+        uses: actions/login-action@v3
+        with:  
+          username: ${{secrets.DOCKERHUB_USERNAME}}
+          password: ${{secrets.DOCKERHUB_PASSWORD}}
+      - name: Push docker image to Docker hub
+        run: docker push ${{env.IMAGE_NAME}}:${{IMAGE_TAG}}
+
+
