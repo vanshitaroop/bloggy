@@ -53,8 +53,8 @@ jobs:
     steps: 
       - name: Checkout th source code
         uses: actions/checkout@v4
-       - name: build docker image
-        run: docker build -t ${{env.IMAGE_NAME}}:${{IMAGE_TAG}} --platform linux/amd64 .
+      - name: build docker image
+        run: docker build -t ${{env.IMAGE_NAME}}:${{env.IMAGE_TAG}} --platform linux/amd64 .
       - name: Login into Docker hub
         uses: actions/login-action@v3
         with:  
