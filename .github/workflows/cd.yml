@@ -47,7 +47,7 @@ jobs:
           git push
 
   deploy: 
-    name: Deploy the image to docker swarm
+    # name: Deploy the image to docker swarm
     runs-on: ubuntu-latest
     env:
       IMAGE_NAME: vanshitaroop/blog-app
