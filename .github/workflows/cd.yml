@@ -8,7 +8,7 @@ jobs:
   build-and-push: 
     runs-on: ubuntu-latest
     permissions:
-      content: write 
+      contents: write 
     env:
       IMAGE_NAME: vanshitaroop/blog-app
       IMAGE_TAG: build-${{ github.run_number }}
