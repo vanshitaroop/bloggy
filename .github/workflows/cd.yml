@@ -48,22 +48,21 @@ jobs:
       IMAGE_TAG: build-${{github.run_number}}
     needs:
       - build-and-push
-    steps: 
-      - name: SSH into the server
-        uses: appleboy/ssh-action@v1
-          with:
-            host: ${{ secrets.SWARM_MANAGER_HOST }}
-            username: ${{ secrets.SWARM_USERNAME }}
-            key: ${{ secrets.SWARM_HOST_SSH_KEY }}
-            port: ${{ secrets.SWARM_HOST_SSH_PORT }}
-            script: |
-              set -e
-              cd ~/bloggy
+   steps: 
+  - name: SSH into the server
+    uses: appleboy/ssh-action@v1
+    with:
+      host: ${{ secrets.SWARM_MANAGER_HOST }}
+      username: ${{ secrets.SWARM_USERNAME }}
+      key: ${{ secrets.SWARM_HOST_SSH_KEY }}
+      port: ${{ secrets.SWARM_HOST_SSH_PORT }}
+      script: |
+        set -e
+        cd ~/bloggy
 
-              # pull compose file using git
-               git fetch origin main
-              git checkout origin/main --compose.yaml
+        # pull compose file using git
+        git fetch origin main
+        git checkout origin/main -- compose.yaml
 
-              docker pull ${{env.IMAGE_NAME}}:${{env.IMAGE_TAG}}
-              docker stack deploy -c compose.yaml bloggy 
-
+        docker pull ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+        docker stack deploy -c compose.yaml bloggy
