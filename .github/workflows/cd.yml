@@ -42,7 +42,8 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-action@github.com
-          git pull --rebase origin main
+          git reset --hard                     # 🧹 Discard any uncommitted changes
+          git pull --rebase origin main        # 🔄 Rebase with the latest remote changes
           git add compose.yaml
           git commit -m "bump the image version ${{ env.IMAGE_TAG }}" || echo "No changes to commit"
           git push
